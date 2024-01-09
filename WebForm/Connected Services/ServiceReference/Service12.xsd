@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCFServiceHost.Domain" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCFServiceHost.Domain" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfCliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Cliente" nillable="true" type="tns:Cliente" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCliente" nillable="true" type="tns:ArrayOfCliente" />
+  <xs:complexType name="Cliente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="tns:Address" />
+      <xs:element minOccurs="0" name="CPF" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Data_Expedicao" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Data_Nascimento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Estado_Civil" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orgao_Expedicao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sexo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UF_Expedicao" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Cliente" nillable="true" type="tns:Cliente" />
+  <xs:complexType name="Address">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Bairro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CEP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cidade" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cliente" nillable="true" type="tns:Cliente" />
+      <xs:element minOccurs="0" name="ClienteRef" type="xs:int" />
+      <xs:element minOccurs="0" name="Complemento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdAddress" type="xs:int" />
+      <xs:element minOccurs="0" name="Logradouro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Numero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UF" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Address" nillable="true" type="tns:Address" />
+</xs:schema>

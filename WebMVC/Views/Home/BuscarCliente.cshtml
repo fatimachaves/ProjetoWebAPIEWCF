@@ -1,0 +1,598 @@
+﻿@model IEnumerable<WebAPI.Domain.Cliente>
+@{
+    ViewBag.Title = "BuscarCliente";
+}
+
+<style>
+    .register {
+        width: 100%;
+      
+    }
+
+    .gridClient {
+        width: 100%;
+       
+    }
+
+    .scrollable-table-container {
+        max-height: 300px; 
+        overflow-y: auto;
+    }
+
+    .table thead th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa; 
+    }
+    .form-container {
+        width: 50%;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+    }
+
+    .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            text-align: left;
+    }
+    .errorMessage{
+        color:red;
+    }
+
+</style>
+
+<div class="register">
+    <h1>Cadastrar clientes</h1>
+
+    @using (Html.BeginForm("SalvarDados", "Home", FormMethod.Post, new { id = "MyForm", name = "MyForm" }))
+    {
+        <input type="text" id="IdCliente" name="IdCliente" hidden>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="CPF">CPF(*):</label>
+                        <input class="campo" type="text" id="CPF" name="CPF"/>
+
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Nome">Nome(*):</label>
+                        <input class="campo" type="text" id="Nome" name="Nome" />
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="RG">RG:</label>
+                        <input type="text" id="RG" name="RG" />
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Data_Expedicao">Data de Expedição:</label>
+                        <input type="date" id="Data_Expedicao" name="Data_Expedicao" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Orgao_Expedicao">Órgão de Expedição:</label>
+                        <select id="Orgao_Expedicao" name="Orgao_Expedicao" class="form-control">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="UF_Expedicao">UF Expedição:</label>
+                        <select id="UF_Expedicao" name="UF" class="form-control">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Data_Nascimento">Data de Nascimento(*):</label>
+                        <input class="campo" type="date" id="Data_Nascimento" name="Data_Nascimento" />
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Sexo">Selecione o Sexo(*):</label>
+                        <select id="Sexo" name="Sexo" class="form-control campo">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Estado_Civil">Estado Civil(*):</label>
+                        <select id="Estado_Civil" name="Estado_Civil" class="form-control campo">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+                <!-------------------------- Campos do Endereco ------------------>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="CEP">CEP(*):</label>
+                        <input class="campo" type="text" id="CEP" name="address.CEP" />
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Logradouro">Logradouro(*):</label>
+                        <input class="campo" type="text" id="Logradouro" name="address.Logradouro" />
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Numero">Número(*):</label>
+                        <input class="campo" type="text" id="Numero" name="address.Numero" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Complemento">Complemento:</label>
+                        <input type="text" id="Complemento" name="address.Complemento" />
+                    </div>
+                </div>
+
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Bairro">Bairro(*):</label>
+                        <input class="campo" type="text" id="Bairro" name="address.Bairro" />
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="Cidade">Cidade(*):</label>
+                        <input class="campo" type="text" id="Cidade" name="address.Cidade" />
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label for="UF">UF(*):</label>
+                        <select id="UF" name="address.UF" class="form-control campo">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Salvar Dados" />
+        </div>
+    }
+    <div class="gridClient">
+        <h2>BuscarCliente</h2>
+        <div class="scrollable-table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">RG</th>
+                        <th scope="col">Data_Expedicao</th>
+                        <th scope="col">Orgao_Expedicao</th>
+                        <th scope="col">UF</th>
+                        <th scope="col">Data_Nascimento</th>
+                        <th scope="col">Sexo</th>
+                        <th scope="col">Estado_Civil</th>
+                        <!-- Colunas adicionadas para Endereco -->
+                        <th scope="col">CEP</th>
+                        <th scope="col">Logradouro</th>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Complemento</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">UFEndereco</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdCliente)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CPF)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RG)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Data_Expedicao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Orgao_Expedicao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UF_Expedicao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Data_Nascimento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sexo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Estado_Civil)
+                            </td>
+                            <!-- Colunas adicionadas para Endereco -->
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address.CEP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address.Logradouro)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address.Numero)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address.Complemento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address.Bairro)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address.Cidade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address.UF)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("DeletarCliente", "Home", new { id = item.IdCliente })">
+                                    Deletar
+                                </a>
+                            </td>
+                            <td>
+                                <a href="javascript:BuscarCliente(@item.IdCliente)">
+                                    Editar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function validarCamposVazios() {
+            let campos = document.querySelectorAll('.campo'); 
+
+            let camposVazios = false;
+
+            campos.forEach(function (campo) {
+                if (campo.value.trim() === '') {
+                    camposVazios = true;
+                    return; 
+                }
+            });
+
+            if (camposVazios) {
+               
+                alert('Por favor, preencha todos os campos obrigatórios!');
+                return false;
+            } else {
+               
+                return true;
+            }
+        }
+
+
+        function BuscarCliente(id) {
+           
+            $.ajax({
+                url: '/Home/BuscarClientSpecific', 
+                type: 'GET',
+                data: { id: id }, 
+                success: function (data) {
+                    $('#IdCliente').val(data.IdCliente);  
+                    $('#CPF').val(data.CPF);
+                    $('#Nome').val(data.Nome);
+                    $('#RG').val(data.RG);
+                    const dropdownExpedicao = document.getElementById('Orgao_Expedicao');
+                    dropdownExpedicao.value = data.Orgao_Expedicao;
+                    const dropdownUF = document.getElementById('UF_Expedicao');
+                    dropdownUF.value = data.UF;
+                    $('#Data_Nascimento').val(data.Data_Nascimento);
+                    const dropdownsexo = document.getElementById('Sexo');
+                    dropdownsexo.value = data.Sexo;
+                    const dropdownEstadocivil = document.getElementById('Estado_Civil');
+                    dropdownEstadocivil.value = data.Estado_Civil;
+                    $('#CEP').val(data.address.CEP);
+                    $('#Logradouro').val(data.address.Logradouro);
+                    $('#Numero').val(data.address.Numero);
+                    $('#Complemento').val(data.address.Complemento);
+                    $('#Bairro').val(data.address.Bairro);
+                    $('#Cidade').val(data.address.Cidade); 
+                    const dropdownUFEndereco = document.getElementById('UF');
+                    dropdownUFEndereco.value = data.address.UF;
+                    var dataExpedicaoInput = document.getElementById("Data_Expedicao");
+                    dataExpedicaoInput.value = data.Data_Expedicao;
+                    var dataNascimentoInput = document.getElementById("Data_Nascimento");
+                    dataNascimentoInput.value = data.Data_Nascimento;
+                },
+                error: function () {
+                   
+                    alert('Ocorreu um erro ao buscar o cliente.');
+                }
+            });
+        }
+
+        // <------------------------- realizando a validação ------------------------->
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g, ''); 
+
+            if (cpf.length !== 11 || !Array.from(new Set(cpf.split(''))).join('').length === 1) {
+                return false; 
+            }
+
+            let sum = 0;
+            let remainder;
+
+            for (let i = 1; i <= 9; i++) {
+                sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+            }
+
+            remainder = (sum * 10) % 11;
+
+            if (remainder === 10 || remainder === 11) {
+                remainder = 0;
+            }
+
+            if (remainder !== parseInt(cpf.substring(9, 10))) {
+                return false;
+            }
+
+            sum = 0;
+
+            for (let i = 1; i <= 10; i++) {
+                sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+            }
+
+            remainder = (sum * 10) % 11;
+
+            if (remainder === 10 || remainder === 11) {
+                remainder = 0;
+            }
+
+            if (remainder !== parseInt(cpf.substring(10, 11))) {
+                return false;
+            }
+
+            return true; 
+        }
+
+        function verificarCPF() {
+            let CPF = document.getElementById('CPF');
+            let cpfValue = CPF.value; 
+
+            if (!validarCPF(cpfValue)) {
+                alert('CPF inválido. Por favor, insira um CPF válido.');
+                return false;
+            }
+            return true;
+        }
+        document.getElementById('MyForm').addEventListener('submit', function (event) {
+            if (validarCamposVazios() == true) {
+                debugger;
+                var teste = $("#Data_Expedicao").val();
+                if (!verificarCPF()) {
+                    event.preventDefault();
+                }
+            }
+            else {
+                event.preventDefault();
+            }
+        });
+        const sexo = [
+            { value: 'Masculino', text: 'Masculino' },
+            { value: 'Feminino', text: 'Feminino' },
+            { value: 'Prefiro não Opinar', text: 'Prefiro não Opinar' },
+           
+        ];
+
+        
+        function popularDropdown() {
+            const dropdown = document.getElementById('Sexo');
+
+            sexo.forEach(opcao => {
+                const option = document.createElement('option');
+                option.value = opcao.value;
+                option.text = opcao.text;
+                dropdown.appendChild(option);
+            });
+        }
+
+      
+        window.onload = function () {
+            popularDropdown();
+            popularDropdownEstados();
+            popularDropdownOrgaosExpedicao();
+            popularDropdownEstadoCivil();
+            popularDropdownEstadosEndereco();
+        };
+
+        
+        const listUF = [
+            { value: 'AC', text: 'AC' },
+            { value: 'AL', text: 'AL' },
+            { value: 'AP', text: 'AP' },
+            { value: 'AM', text: 'AM' },
+            { value: 'BA', text: 'BA' },
+            { value: 'CE', text: 'CE' },
+            { value: 'DF', text: 'DF' },
+            { value: 'ES', text: 'ES' },
+            { value: 'GO', text: 'GO' },
+            { value: 'MA', text: 'MA' },
+            { value: 'MT', text: 'MT' },
+            { value: 'MS', text: 'MS' },
+            { value: 'MG', text: 'MG' },
+            { value: 'PA', text: 'PA' },
+            { value: 'PB', text: 'PB' },
+            { value: 'PR', text: 'PR' },
+            { value: 'PE', text: 'PE' },
+            { value: 'PI', text: 'PI' },
+            { value: 'RJ', text: 'RJ' },
+            { value: 'RN', text: 'RN' },
+            { value: 'RS', text: 'RS' },
+            { value: 'RO', text: 'RO' },
+            { value: 'RR', text: 'RR' },
+            { value: 'SC', text: 'SC' },
+            { value: 'SP', text: 'SP' },
+            { value: 'SE', text: 'SE' },
+            { value: 'TO', text: 'TO' }
+        ];
+
+        function popularDropdownEstadosEndereco() {
+            const dropdown = document.getElementById('UF');
+
+            listUF.forEach(sigla => {
+                const option = document.createElement('option');
+                option.value = sigla.value;
+                option.text = sigla.text;
+                dropdown.appendChild(option);
+            });
+        }
+
+        function popularDropdownEstados() {
+            const dropdown = document.getElementById('UF_Expedicao');
+
+            listUF.forEach(sigla => {
+                const option = document.createElement('option');
+                option.value = sigla.value;
+                option.text = sigla.text;
+                dropdown.appendChild(option);
+            });
+        }
+
+        const orgaosExpedicao = [
+            { value: 'ABNC', text: 'ABNC' },
+            { value: 'CGPI/DUREX/DPF', text: 'CGPI/DUREX/DPF' },
+            { value: 'CGPI', text: 'CGPI' },
+            { value: 'CGPMAF', text: 'CGPMAF' },
+            { value: 'CNIG', text: 'CNIG' },
+            { value: 'CNT', text: 'CNT' },
+            { value: 'COREN', text: 'COREN' },
+            { value: 'CORECON', text: 'CORECON' },
+            { value: 'CRA', text: 'CRA' },
+            { value: 'CRAS', text: 'CRAS' },
+            { value: 'CRB', text: 'CRB' },
+            { value: 'CRC', text: 'CRC' },
+            { value: 'CRE', text: 'CRE' },
+            { value: 'CREA', text: 'CREA' },
+            { value: 'CRECI', text: 'CRECI' },
+            { value: 'CREFIT', text: 'CREFIT' },
+            { value: 'CRESS', text: 'CRESS' },
+            { value: 'CRF', text: 'CRF' },
+            { value: 'CRM', text: 'CRM' },
+            { value: 'CRN', text: 'CRN' },
+            { value: 'CRO', text: 'CRO' },
+            { value: 'CRP', text: 'CRP' },
+            { value: 'CRPRE', text: 'CRPRE' },
+            { value: 'CRQ', text: 'CRQ' },
+            { value: 'CRRC', text: 'CRRC' },
+            { value: 'CRMV', text: 'CRMV' },
+            { value: 'CSC', text: 'CSC' },
+            { value: 'DIC', text: 'DIC' },
+            { value: 'DIREX', text: 'DIREX' },
+            { value: 'DPMAF', text: 'DPMAF' },
+            { value: 'DPT', text: 'DPT' },
+            { value: 'DST', text: 'DST' },
+            { value: 'FGTS', text: 'FGTS' },
+            { value: 'FIPE', text: 'FIPE' },
+            { value: 'FLS', text: 'FLS' },
+            { value: 'GOVGO', text: 'GOVGO' },
+            { value: 'I CLA', text: 'I CLA' },
+            { value: 'IFP', text: 'IFP' },
+            { value: 'IGP', text: 'IGP' },
+            { value: 'IICCECF/RO', text: 'IICCECF/RO' },
+            { value: 'IIMG', text: 'IIMG' },
+            { value: 'IML', text: 'IML' },
+            { value: 'IPC', text: 'IPC' },
+            { value: 'IPF', text: 'IPF' },
+            { value: 'MAE', text: 'MAE' },
+            { value: 'MEX', text: 'MEX' },
+            { value: 'MMA', text: 'MMA' },
+            { value: 'MTE', text: 'MTE' },
+            { value: 'OAB', text: 'OAB' },
+            { value: 'OMB', text: 'OMB' },
+            { value: 'PCMG', text: 'PCMG' },
+            { value: 'PMMG', text: 'PMMG' },
+            { value: 'POF ou DPF', text: 'POF ou DPF' },
+            { value: 'POM', text: 'POM' },
+            { value: 'SDS', text: 'SDS' },
+            { value: 'SNJ', text: 'SNJ' },
+            { value: 'SECC', text: 'SECC' },
+            { value: 'SEJUSP', text: 'SEJUSP' },
+            { value: 'SES ou EST', text: 'SES ou EST' },
+            { value: 'SESP', text: 'SESP' },
+            { value: 'SJS', text: 'SJS' },
+            { value: 'SJTC', text: 'SJTC' },
+            { value: 'SJTS', text: 'SJTS' },
+            { value: 'SPTC', text: 'SPTC' },
+            { value: 'SSP/UF', text: 'SSP/UF' },
+            { value: 'Cartório Civil', text: 'Cartório Civil' },
+            { value: 'Polícia Federal', text: 'Polícia Federal' },
+            { value: 'DETRAN', text: 'DETRAN' }
+        ];
+
+        function popularDropdownOrgaosExpedicao() {
+            const dropdown = document.getElementById('Orgao_Expedicao');
+
+            orgaosExpedicao.forEach(orgao => {
+                const option = document.createElement('option');
+                option.value = orgao.value;
+                option.text = orgao.text;
+                dropdown.appendChild(option);
+            });
+        }
+
+        const estadoCivil = [
+            { value: 'Solteiro(a)', text: 'Solteiro(a)' },
+            { value: 'Casado(a)', text: 'Casado(a)' },
+            { value: 'Divorciado(a)', text: 'Divorciado(a)' },
+            { value: 'Viúvo(a)', text: 'Viúvo(a)' },
+            { value: 'Separado(a) judicialmente', text: 'Separado(a) judicialmente' },
+        ];
+
+        function popularDropdownEstadoCivil() {
+            const dropdown = document.getElementById('Estado_Civil');
+
+            estadoCivil.forEach(opcao => {
+                const option = document.createElement('option');
+                option.value = opcao.value;
+                option.text = opcao.text;
+                dropdown.appendChild(option);
+            });
+        }
+    </script>
